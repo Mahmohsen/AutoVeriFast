@@ -2265,9 +2265,18 @@ let print_context_stack_test cs =
                             iter dss
     in iter structdeclmap
 
+let searchpointer s str1=
+         let rec iter i =
+            if(i = 100) then false
+            else
+             let str = (Printf.sprintf "%s%s\n" "*" str1) in (printnow "%s%s\n" "THis is the *fieldname" str;
+             if((try(Str.search_forward(Str.regexp str) (return_line s i) 0) with Not_found -> -1) > -1) then true
+             else (iter (i+1)))
+         in iter 0
+          
 
-let ownership_list = 
-    let rec iter ds = 
+  let ownership_list = 
+       let rec iter ds =
         match ds with
             [] -> []
          |   (sn, (l, fds_opt))::dss ->
@@ -2275,19 +2284,32 @@ let ownership_list =
                     match fds_opt with
                         Some([]) -> iter dss
                     |   Some (Field(a1,a2,a3,a4,a5,a6,a7, Some (a8)) :: a9) ->
-                            if((checkfieldtype a3) ="char") then   
-                                (Autogen("string1", a4, "") :: add_ownership (Some (a9)))
-                            else
-                                add_ownership (Some (a9))              
-                    |   Some (Field(a1,a2,a3,a4,a5,a6,a7, None) :: a9) ->
-                             if((checkfieldtype a3) ="char") then   
-                                (Autogen("string1", a4, "") :: add_ownership (Some (a9)))  
-                             else
-                                add_ownership (Some (a9))                
-
+                            begin
+                            match a1 with
+                              (x, y) -> 
+                               match x with
+                                (file, l, col) ->
+                                  if((checkfieldtype a3) ="char") then
+                                    (printnow "%s\n" "I am here find me1";
+                                    (Autogen("string1", a4, "") :: add_ownership (Some (a9))))
+                                  else
+                                    add_ownership (Some (a9))
+                            end              
+                    |   Some (Field(a1,a2,a3,a4,a5,a6,a7, None) :: a9) -> 
+                           begin
+                            match a1 with
+                              (x, y) -> 
+                               match x with
+                                (file, l, col) ->
+                                  if((checkfieldtype a3) ="char" ) then
+                                   (printnow "%s\n" "I am here find me2";  
+                                   (Autogen("string1", a4, "") :: add_ownership (Some (a9))))  
+                                  else
+                                   add_ownership (Some (a9))
+                           end
                     |   None -> iter dss
                     |   Some(Owns :: rest) -> (printnow "%s %s\n" sn "Inside owns");
-                            begin 
+                            begin
                             match rest with
                             |   Field(a1,a2,a3,a4,a5,a6,a7, Some (a8)) :: a9 -> ((printnow "%s %s \n" sn (checkfieldtype a3));
                                     (Autogen(sn, (checkfieldtype a3), a4) :: (add_ownership (Some a9))))
@@ -2297,6 +2319,7 @@ let ownership_list =
                     |   Some(Counts(counter) :: rest) -> (add_ownership (Some rest))
                 in add_ownership fds_opt
     in iter structdeclmap
+    
 
 
     let ownership_counter_list =
@@ -2578,10 +2601,10 @@ let ownership_list =
                 llst_check_contain_llst autogenmap autogencountermap structname oc 
      
                 
-  let print_inner_structure structname structure autogenmap oc =
+  let print_inner_structure structname structure autogenmap oc filename line_no =
     match structure with
         Some (Structure (x, "Linkedlist")) ->
-            llst_check_contain_llst (ownership_list) (ownership_counter_list) structname oc;
+            llst_check_contain_llst ownership_list (ownership_counter_list) structname oc;
             output_string_file oc " &*& "; 
             output_string_file oc structname; 
             output_string_file oc "("; 
@@ -2590,30 +2613,30 @@ let ownership_list =
     |   None -> 
             (check_contain_llist autogenmap structname oc 1)
 
-  let rec print_string_predicate fields oc =
+  let rec print_string_predicate fields oc s =
     match fields with
         [] -> ()
     |   Structfields(iden, fieldname) :: fields ->
-            if(iden = "char") then
+            if(iden = "char" && searchpointer s fieldname) then
                 begin
                 output_string_file oc " &*& ";
                 output_string_file oc "string1(";
                 output_string_file oc fieldname;
                 output_string_file oc ")";
-                print_string_predicate fields oc
+                print_string_predicate fields oc s
                 end
             else
-                print_string_predicate fields oc       
+                print_string_predicate fields oc s     
   
-  let print_predicate_body structname fields autogenmap structure oc file = 
+  let print_predicate_body structname fields autogenmap structure oc file line_no = 
     print_all_fields structname fields oc;
-    print_string_predicate fields oc; (*This function ony checks if there is a field of type pointer to char and create a predicate of type string for it*) 
+    print_string_predicate fields oc file; (*This function ony checks if there is a field of type pointer to char and create a predicate of type string for it*) 
     print_autogen_fields structname fields (*(ownership_list)*) autogenmap oc structure file; 
-    print_inner_structure structname structure autogenmap oc
+    print_inner_structure structname structure autogenmap oc file line_no
     
 
   
-  let print_predicate_parameters structname fields autogenmap structure oc file = 
+  let print_predicate_parameters structname fields autogenmap structure oc file line_no = 
     output_string_file oc " (struct "; 
     output_string_file oc structname; 
     output_string_file oc " *"; 
@@ -2623,14 +2646,14 @@ let ownership_list =
             output_string_file oc "; int count) = \n "; 
             output_string_file oc structname; 
             output_string_file oc " == 0 ? count == 0 : "; 
-            print_predicate_body structname fields autogenmap structure oc file
+            print_predicate_body structname fields autogenmap structure oc file line_no
     |   None ->   
             (check_contain_llist autogenmap structname oc 0);
-            print_predicate_body structname fields autogenmap structure oc file
+            print_predicate_body structname fields autogenmap structure oc file line_no
             
    
   
-  let generate_predicate autogenmap oc newstructmap file = 
+  let generate_predicate autogenmap oc newstructmap file line_no= 
     if(newstructmap <> []) then begin
         output_string_file oc "//The following predicates are auto generated \n"; 
         output_string_file oc "/*@ \n";
@@ -2647,7 +2670,7 @@ let ownership_list =
                 output_string_file oc "predicate";
                 output_string_file oc " "; 
                 output_string_file oc structname; 
-                print_predicate_parameters structname fields autogenmap structure oc file; 
+                print_predicate_parameters structname fields autogenmap structure oc file line_no; 
                 iter nextnewstructmap
         in iter newstructmap end
    else output_string_file oc ""      
@@ -2662,7 +2685,7 @@ let ownership_list =
                   if (i = line_no) then 
                   begin
                       begin 
-                      generate_predicate (*(autgendeclmap)*) (ownership_list) oc (check_struct_structure (create_new_struct_map [] file)) file
+                      generate_predicate (*(autgendeclmap)*) (ownership_list) oc (check_struct_structure (create_new_struct_map [] file)) file line_no
                       end; 
                       output_string_file oc "\n\n";
                       output_string_file oc line; 
@@ -3058,7 +3081,7 @@ let rec check_assumptions infered_count cs =
 let check_infered_conut infered_count cs row  = (printnow "This is infered count %s\n" infered_count);
     if((try (Str.search_forward (Str.regexp "[a-z]+[0-9]*_*+") infered_count 0) with Not_found -> -1) >= 0) then 
         if(check_locality (Str.matched_string infered_count) cs row) then
-            infered_count
+            (check_local_name infered_count (return_env cs))
         else
         begin
             let new_infered_count = (Str.matched_string infered_count) in
