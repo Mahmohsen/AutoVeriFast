@@ -1,0 +1,5 @@
+.provides .\strings.h#create_string
+.provides .\strings.h#parse_nonneg_integer
+.provides .\strings.h#strcmp
+.provides .\strings.h#strdup
+.provides .\strings.h#string_dispose

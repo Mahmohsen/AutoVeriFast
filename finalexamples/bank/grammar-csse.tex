@@ -1,0 +1,234 @@
+\documentclass{article}
+
+\title{VeriFast Grammar for the CSSE Assignment}
+
+\author{Bart Jacobs}
+
+\newcommand{\barr}{\begin{array}{l}}
+\newcommand{\earr}{\end{array}}
+\newcommand{\llbrace}{\{\hspace{-3pt}[}
+\newcommand{\rrbrace}{]\hspace{-3pt}\}}
+\DeclareMathAlphabet{\mathsfsl}{OT1}{cmss}{m}{sl}
+\renewcommand{\ss}{\ensuremath{\hat{s}}}
+\newcommand{\sH}{\hat{H}}
+
+\addtolength{\hoffset}{-2cm}
+\addtolength{\textwidth}{4cm}
+\addtolength{\voffset}{-2cm}
+\addtolength{\textheight}{3cm}
+
+\begin{document}
+
+\maketitle
+
+\section{Grammar}
+
+This grammar describes the subset of the VeriFast verification
+tool input language required for the \emph{Capita Selecta
+Software Engineering} course assignment. The tool supports
+additional programming language and annotation language
+features; however, the features not described here are not
+needed and are not allowed to be used for the homework.
+
+\subsection{Programs}
+
+\begin{flushleft}
+$\mathit{Program{:}}$\\
+$\quad \mathit{Declarations}$\\[5pt]
+
+$\mathit{Declarations{:}}$\\
+$\quad \mathit{Declaration}$\\
+$\quad \mathit{Declarations}\ \mathit{Declaration}$\\[5pt]
+
+$\mathit{Declaration{:}}$\\
+$\quad \mathit{StructDeclaration}$\\
+$\quad \mathit{PredicateDeclarationsBlock}$\\
+$\quad \mathit{FunctionDeclaration}$\\
+\end{flushleft}
+
+\subsection{Struct Declarations}
+
+\begin{flushleft}
+$\mathit{StructDeclaration{:}}$\\
+$\quad \mathtt{struct}\ \mathit{StructName}\ \texttt{\symbol{123}}\ \mathit{FieldDeclarations}\ \texttt{\symbol{125}}\ \texttt{;}$\\[5pt]
+
+$\mathit{StructName{:}}$\\
+$\quad \mathit{Identifier}$\\[5pt]
+
+$\mathit{FieldDeclarations{:}}$\\
+$\quad \mathit{FieldDeclaration}$\\
+$\quad \mathit{FieldDeclarations}\ \mathit{FieldDeclaration}$\\[5pt]
+
+$\mathit{FieldDeclaration{:}}$\\
+$\quad \mathit{FieldType}\ \mathit{FieldName}\ \texttt{;}$\\[5pt]
+
+$\mathit{FieldName{:}}$\\
+$\quad \mathit{Identifier}$\\[5pt]
+
+$\mathit{FieldType{:}}$\\
+$\quad \texttt{int}$\\
+$\quad \texttt{struct}\ \mathit{StructName}\ \texttt{*}$\\
+\end{flushleft}
+
+\subsection{Predicate Declarations}
+
+\begin{flushleft}
+$\mathit{PredicateDeclarationsBlock{:}}$\\
+$\quad \texttt{/*@}\ \mathit{PredicateDeclarations}_\mathit{opt}\ \texttt{@*/}$\\[5pt]
+
+$\mathit{PredicateDeclarations{:}}$\\
+$\quad \mathit{PredicateDeclaration}$\\
+$\quad \mathit{PredicateDeclarations}\ \mathit{PredicateDeclaration}$\\[5pt]
+
+$\mathit{PredicateDeclaration{:}}$\\
+$\quad \texttt{predicate}\ \mathit{PredicateName}\ \mathit{ParameterList}\ \texttt{requires}\ \mathit{Assertion}\ \texttt{;}$\\[5pt]
+
+$\mathit{PredicateName{:}}$\\
+$\quad \mathit{Identifier}$\\[5pt]
+
+$\mathit{ParameterList{:}}$\\
+$\quad \texttt{(}\ \mathit{ParameterDeclarations}_\mathit{opt}\ \texttt{)}$\\[5pt]
+
+$\mathit{ParameterDeclarations{:}}$\\
+$\quad \mathit{ParameterDeclaration}$\\
+$\quad \mathit{ParameterDeclarations}\ \texttt{,}\ \mathit{ParameterDeclaration}$\\[5pt]
+
+$\mathit{ParameterDeclaration{:}}$\\
+$\quad \mathit{Type}\ \mathit{ParameterName}$\\[5pt]
+
+$\mathit{Type{:}}$\\
+$\quad \mathtt{int}$\\
+$\quad \mathtt{struct}\ \mathit{StructName}\ \texttt{*}$\\
+$\quad \mathtt{bool}$\\
+$\quad \mathtt{char}\ \texttt{*}$\\[5pt]
+
+$\mathit{ParameterName{:}}$\\
+$\quad \mathit{Identifier}$\\[5pt]
+
+$\mathit{Assertion{:}}$\\
+$\quad \mathit{AssertionConjunct}$\\
+$\quad \mathit{AssertionConjunct}\ \texttt{\&*\&}\ \mathit{Assertion}$\\[5pt]
+
+$\mathit{AssertionConjunct{:}}$\\
+$\quad \texttt{emp}$\\
+$\quad \mathit{PointsToAssertion}$\\
+$\quad \mathit{PredicateAssertion}$\\
+$\quad \mathit{ConditionalAssertion}$\\
+$\quad \texttt{(}\ \mathit{Assertion}\ \texttt{)}$\\[5pt]
+
+$\mathit{PointsToAssertion{:}}$\\
+$\quad \mathit{VariableName}\ \texttt{->}\ \mathit{FieldName}\ \texttt{|->}\ \mathit{Pattern}$\\[5pt]
+
+$\mathit{PredicateAssertion{:}}$\\
+$\quad \mathit{PredicateName}\ \mathit{ArgumentPatternList}$\\[5pt]
+
+$\mathit{ArgumentPatternList{:}}$\\
+$\quad \texttt{(}\ \mathit{Patterns}_\mathit{opt}\ \texttt{)}$\\[5pt]
+
+$\mathit{Patterns{:}}$\\
+$\quad \mathit{Pattern}$\\
+$\quad \mathit{Patterns}\ \texttt{,}\ \mathit{Pattern}$\\[5pt]
+
+$\mathit{Pattern{:}}$\\
+$\quad \texttt{\symbol{95}}$\\
+$\quad \texttt{?}\ \mathit{VariableName}$\\
+$\quad \mathit{Expression}$\\[5pt]
+
+$\mathit{ConditionalAssertion{:}}$\\
+$\quad \mathit{ConjunctionExpression}\ \texttt{?}\ \mathit{Assertion}\ \texttt{:}\ \mathit{Assertion}$\\
+\end{flushleft}
+
+\subsection{Expressions}
+
+\begin{flushleft}
+$\mathit{Expression{:}}$\\
+$\quad \mathit{ConjunctionExpression}$\\
+$\quad \mathit{ConjunctionExpression}\ \texttt{?}\ \mathit{Expression}\ \texttt{:}\ \mathit{Expression}$\\[5pt]
+
+$\mathit{ConjunctionExpression{:}}$\\
+$\quad \mathit{RelationalExpression}$\\
+$\quad \mathit{RelationalExpression}\ \texttt{\&\&}\ \mathit{ConjunctionExpression}$\\
+$\quad \mathit{RelationalExpression}\ \texttt{||}\ \mathit{ConjunctionExpression}$\\[5pt]
+
+$\mathit{RelationalExpression{:}}$\\
+$\quad \mathit{ArithmeticExpression}$\\
+$\quad \mathit{ArithmeticExpression}\ \texttt{==}\ \mathit{ArithmeticExpression}$\\
+$\quad \mathit{ArithmeticExpression}\ \texttt{!=}\ \mathit{ArithmeticExpression}$\\
+$\quad \mathit{ArithmeticExpression}\ \texttt{<=}\ \mathit{ArithmeticExpression}$\\
+$\quad \mathit{ArithmeticExpression}\ \texttt{<}\ \mathit{ArithmeticExpression}$\\[5pt]
+
+$\mathit{ArithmeticExpression{:}}$\\
+$\quad \mathit{SuffixedExpression}\ \texttt{+}\ \mathit{SuffixedExpression}$\\
+$\quad \mathit{SuffixedExpression}\ \texttt{-}\ \mathit{SuffixedExpression}$\\[5pt]
+
+$\mathit{SuffixedExpression{:}}$\\
+$\quad \mathit{PrimaryExpression}$\\
+$\quad \mathit{SuffixedExpression}\ \texttt{->}\ \mathit{FieldName}$\\[5pt]
+
+$\mathit{PrimaryExpression{:}}$\\
+$\quad \texttt{true}$\\
+$\quad \texttt{false}$\\
+$\quad \mathit{IntegerLiteral}$\\
+$\quad \mathit{StringLiteral}$\\
+$\quad \mathit{VariableName}$\\
+$\quad \texttt{(}\ \mathit{Expression}\ \texttt{)}$\\
+$\quad \texttt{!}\ \mathit{PrimaryExpression}$\\
+\end{flushleft}
+
+\subsection{Functions}
+
+\begin{flushleft}
+$\mathit{FunctionDeclaration{:}}$\\
+$\quad \mathit{ReturnType}\ \mathit{FunctionName}\ \mathit{ParameterList}\ \mathit{Contract}\ \mathit{Block}$\\[5pt]
+
+$\mathit{ReturnType{:}}$\\
+$\quad \texttt{void}$\\
+$\quad \mathit{Type}$\\[5pt]
+
+$\mathit{FunctionName{:}}$\\
+$\quad \mathit{Identifier}$\\[5pt]
+
+$\mathit{Contract{:}}$\\
+$\quad \texttt{/*@}\ \texttt{requires}\ \mathit{Assertion}\ \texttt{;}\ \texttt{@*/}\ \texttt{/*@}\ \texttt{ensures}\ \mathit{Assertion}\ \texttt{;}\ \texttt{@*/}$\\[5pt]
+\end{flushleft}
+
+\subsection{Statements}
+
+\begin{flushleft}
+$\mathit{Block{:}}$\\
+$\quad \texttt{\symbol{123}}\ \mathit{Statements}_\mathit{opt}\ \texttt{\symbol{125}}$\\[5pt]
+
+$\mathit{Statements{:}}$\\
+$\quad \mathit{Statement}$\\
+$\quad \mathit{Statements}\ \mathit{Statement}$\\[5pt]
+
+$\mathit{Statement{:}}$\\
+$\quad \mathit{Type}\ \mathit{VariableName}\ \texttt{=}\ \mathit{RightHandSide}\ \texttt{;}$\\
+$\quad \mathit{VariableName}\ \texttt{=}\ \mathit{RightHandSide}\ \texttt{;}$\\
+$\quad \mathit{VariableName}\ \texttt{->}\ \mathit{FieldName}\ \texttt{=}\ \mathit{Expression}\ \texttt{;}$\\
+$\quad \texttt{free}\ \texttt{(}\ \mathit{Expression}\ \texttt{)}\ \texttt{;}$\\
+$\quad \mathit{FunctionName}\ \mathit{ArgumentList}\ \texttt{;}$\\
+$\quad \texttt{if}\ \texttt{(}\ \mathit{Expression}\ \texttt{)}\ \mathit{Block}\ \mathit{ElsePart}_\mathit{opt}$\\
+$\quad \texttt{while}\ \texttt{(}\ \mathit{Expression}\ \texttt{)}\ \texttt{/*@}\ \texttt{invariant}\ \mathit{Assertion}\ \texttt{;}\ \texttt{@*/}\ \mathit{Block}$\\
+$\quad \texttt{return}\ \mathit{Expression}\ \texttt{;}$\\
+$\quad \texttt{/*@}\ \texttt{open}\ \mathit{PredicateName}\ \mathit{ArgumentPatternList}\ \texttt{;}\ \texttt{@*/}$\\
+$\quad \texttt{/*@}\ \texttt{close}\ \mathit{PredicateName}\ \mathit{ArgumentList}\ \texttt{;}\ \texttt{@*/}$\\
+$\quad \texttt{/*@}\ \texttt{assert}\ \mathit{Assertion}\ \texttt{;}\ \texttt{@*/}$\\[5pt]
+
+$\mathit{RightHandSide{:}}$\\
+$\quad \mathit{Expression}$\\
+$\quad \texttt{malloc}\ \texttt{(}\ \texttt{sizeof}\ \texttt{(}\ \texttt{struct}\ \mathit{StructName}\ \texttt{)}\ \texttt{)}$\\
+$\quad \mathit{FunctionName}\ \mathit{ArgumentList}$\\[5pt]
+
+$\mathit{ElsePart{:}}$\\
+$\quad \texttt{else}\ \mathit{Block}$\\[5pt]
+
+$\mathit{ArgumentList{:}}$\\
+$\quad \texttt{(}\ \mathit{Expressions}_\mathit{opt}\ \texttt{)}$\\[5pt]
+
+$\mathit{Expressions{:}}$\\
+$\quad \mathit{Expression}$\\
+$\quad \mathit{Expressions}\ \texttt{,}\ \mathit{Expression}$\\[5pt]
+\end{flushleft}
+
+\end{document}

@@ -1,0 +1,2 @@
+- Kijk of er een minder pijnlijke manier is om te compileren en te testen
+- Schijnbaar werkt verify.bat niet?

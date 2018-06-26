@@ -1,0 +1,244 @@
+O
+RWelcome to Home Banking.
+RPlease enter your username.
+Sroot
+RPlease enter your password.
+Sroot
+RWelcome, root.
+RTeller Menu
+R1. Add user account
+R2. Add bank account
+R3. Close bank account
+R4. Close user account
+R0. Done
+S1
+REnter user name for new account:
+Stom
+REnter password for new account:
+Stompwd
+REnter real name for new account:
+STom
+RThe new user account has been added.
+RTeller Menu
+R1. Add user account
+R2. Add bank account
+R3. Close bank account
+R4. Close user account
+R0. Done
+S1
+REnter user name for new account:
+Sjerry
+REnter password for new account:
+Sjerrypwd
+REnter real name for new account:
+SJerry
+RThe new user account has been added.
+RTeller Menu
+R1. Add user account
+R2. Add bank account
+R3. Close bank account
+R4. Close user account
+R0. Done
+S2
+RPlease enter an ID for the new account.
+Stomaccount1
+RPlease enter the user name of the owner of the new account.
+Stom
+RPlease enter the amount of the initial deposit.
+S1000
+RThe new account has been added.
+RTeller Menu
+R1. Add user account
+R2. Add bank account
+R3. Close bank account
+R4. Close user account
+R0. Done
+S2
+RPlease enter an ID for the new account.
+Stomaccount2
+RPlease enter the user name of the owner of the new account.
+Stom
+RPlease enter the amount of the initial deposit.
+S1500
+RThe new account has been added.
+RTeller Menu
+R1. Add user account
+R2. Add bank account
+R3. Close bank account
+R4. Close user account
+R0. Done
+S2
+RPlease enter an ID for the new account.
+Sjerryaccount
+RPlease enter the user name of the owner of the new account.
+Sjerry
+RPlease enter the amount of the initial deposit.
+S2000
+RThe new account has been added.
+RTeller Menu
+R1. Add user account
+R2. Add bank account
+R3. Close bank account
+R4. Close user account
+R0. Done
+S0
+C
+O
+RWelcome to Home Banking.
+RPlease enter your username.
+Stom
+RPlease enter your password.
+Stompwd
+RWelcome, Tom.
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S1
+RAccounts:
+R1. Id: tomaccount2; Balance: 1500.
+R2. Id: tomaccount1; Balance: 1000.
+REnter account index to view transactions:
+S1
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S1
+RAccounts:
+R1. Id: tomaccount2; Balance: 1500.
+R2. Id: tomaccount1; Balance: 1000.
+REnter account index to view transactions:
+S2
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S0
+C
+O
+RWelcome to Home Banking.
+RPlease enter your username.
+Sjerry
+RPlease enter your password.
+Sjerrypwd
+RWelcome, Jerry.
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S1
+RAccounts:
+R1. Id: jerryaccount; Balance: 2000.
+REnter account index to view transactions:
+S0
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S2
+RPlease enter the account id of your account:
+Sjerryaccount
+RPlease enter the target account id:
+Stomaccount1
+RPlease enter the amount:
+S200
+RPlease enter the comment:
+SCheese
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S1
+RAccounts:
+R1. Id: jerryaccount; Balance: 1800.
+REnter account index to view transactions:
+S1
+RTransfer of 200 to tomaccount1 with comment Cheese
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S2
+RPlease enter the account id of your account:
+Sjerryaccount
+RPlease enter the target account id:
+Stomaccount1
+RPlease enter the amount:
+S400
+RPlease enter the comment:
+SMore cheese
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S1
+RAccounts:
+R1. Id: jerryaccount; Balance: 1400.
+REnter account index to view transactions:
+S1
+RTransfer of 400 to tomaccount1 with comment More cheese
+RTransfer of 200 to tomaccount1 with comment Cheese
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S2
+RPlease enter the account id of your account:
+Sjerryaccount
+RPlease enter the target account id:
+Stomaccount2
+RPlease enter the amount:
+S750
+RPlease enter the comment:
+SYet more cheese
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S1
+RAccounts:
+R1. Id: jerryaccount; Balance: 650.
+REnter account index to view transactions:
+S1
+RTransfer of 750 to tomaccount2 with comment Yet more cheese
+RTransfer of 400 to tomaccount1 with comment More cheese
+RTransfer of 200 to tomaccount1 with comment Cheese
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S0
+C
+O
+RWelcome to Home Banking.
+RPlease enter your username.
+Stom
+RPlease enter your password.
+Stompwd
+RWelcome, Tom.
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S1
+RAccounts:
+R1. Id: tomaccount2; Balance: 2250.
+R2. Id: tomaccount1; Balance: 1600.
+REnter account index to view transactions:
+S2
+RTransfer of 400 from jerryaccount with comment More cheese
+RTransfer of 200 from jerryaccount with comment Cheese
+RClient menu
+R1. View accounts
+R2. Perform wire transfer
+R0. Done
+S1
+RAccounts:
+R1. Id: tomaccount2; Balance: 2250.
+R2. Id: tomaccount1; Balance: 1600.
+REnter account index to view transactions:
+S1
+RTransfer of 750 from jerryaccount with comment Yet more cheese
+C
+E

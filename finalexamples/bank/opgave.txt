@@ -1,0 +1,40 @@
+1) Voeg annotaties toe aan bank.c zodat het programma aanvaard wordt door VeriFast.
+2) Breid bank.c uit met een implementatie voor de opdrachten "Close bank account" en "Close user account". De opdracht "Close user account" moet ook alle bank accounts van de betrokken user sluiten. Het uitgebreide programma moet het testscript testscript_extended.txt doen slagen. Annoteer het uitgebreide programma zodat het aanvaard wordt door VeriFast. Je mag de bestaande code niet wijzigen; je mag enkel nieuwe code toevoegen op de aangeduide plaatsen.
+
+Let op: Je moet er enkel voor zorgen dat het programma aanvaard wordt door VeriFast. Dit betekent dat je niet de correctheid van de functionaliteit van het programma hoeft te verificeren; je moet enkel memory safety verificeren en de eventuele bijkomende eigenschappen die je daarvoor nodig hebt. Dit kan je perfect doen zonder gebruik te maken van elementen van VeriFast die we niet gezien hebben, zoals inductieve datatypes, fixpoint-functies, en lemmafuncties. Sterker nog: je mag deze elementen niet gebruiken in je oplossing; je mag enkel de elementen gebruiken die beschreven worden door de grammatica in de Reference Guide in bijlage.
+
+Het gebruik van "assume" is niet toegelaten.
+
+Je mag enkel de functies gebruiken die gedefinieerd zijn in bank.c zelf en in de meegeleverde header files malloc.h, strings.h, sockets.h, en stdlib.h. Je mag uiteraard nieuwe functies definiëren in bank.c op de aangeduide plaats. De andere meegeleverde C-modules en header files dienen enkel voor de uitvoering en hoef je niet te bekijken of te begrijpen.
+
+Je kan het programma compileren met gcc onder Linux, of met behulp van Cygwin (http://www.cygwin.com) onder Windows. In het laatste geval moet je Cygwin installeren met het package "gcc" plus dependencies. Gebruik de opdracht
+
+. make.bat
+
+om het programma te compileren en
+
+./bank.exe
+
+om het uit te voeren. Gebruik de opdracht
+
+. make_tester.bat
+
+om de test-client te compileren, en
+
+./tester < testscript.txt
+
+of
+
+./tester < testscript_extended.txt
+
+om het programma te testen. Gebruik de opdracht
+
+. verify.bat
+
+om het programma te verificeren. Dit veronderstelt dat verifast.exe zich in je PATH bevindt.
+
+Je zal je oplossing mondeling moeten komen verdedigen. De verdediging zal plaatsvinden in het begin van het tweede semester. De precieze timing wordt later afgesproken. Je moet op voorhand je oplossing (m.a.w. je uitgebreide en geannoteerde versie van bank.c) doorsturen. Tijdens de verdediging zullen inzichtsvragen gesteld worden over de verificatie, zoals: teken de toestand van de symbolische uitvoering op een bepaald punt in het programma.
+
+Je moet je oplossing indienen ten laatste op zondag 8 februari 2009, via Toledo. Je mag enkel je uitgebreide en geannoteerde versie van bank.c doorsturen.
+
+Gelieve problemen te melden op het Discussieforum op Toledo of via e-mail naar bart.jacobs@cs.kuleuven.be.

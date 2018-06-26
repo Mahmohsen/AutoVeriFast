@@ -1,0 +1,41 @@
+1) Add annotations to bank.c (see attachment) so that the program is accepted by VeriFast.
+
+2) Extend bank.c with an implementation for the commands "Close bank account" and "Close user account". The command "Close user account" must also close all bank accounts of the user involved. The extended program must pass the test script testscript_extended.txt. Annotate the extended program so that it is accepted by VeriFast. You may not modify existing code; you may only add new code in the designated places.
+
+Notice: You need only ensure that the program is accepted by VeriFast. This means that you need not verify the correctness of the program's functionality; you need only verify memory safety and any additional properties needed for this purpose. This can be done perfectly without using elements of VeriFast that we did not see in the course, such as inductive datatypes, fixpoint functions, and lemma functions. In fact, you are not allowed to use these elements in your solution; you may only use the elements that are described by the grammar in the grammar-csse.pdf document.
+
+The use of "assume" is not allowed.
+
+You may only use the functions that are defined in bank.c itself and in the accompanying header files malloc.h, strings.h, sockets.h, and stdlib.h. You may of course define new functions inside bank.c in the designated location. The other accompanying C modules and header files serve only for execution and you do not need to inspect or understand these.
+
+You can compile the program using gcc on Linux, or using Cygwin (http://www.cygwin.com) on Windows. In the latter case you need to install Cygwin as well as the package "gcc" plus dependencies. Use the command
+
+. make.bat
+
+to compile the program and
+
+./bank.exe
+
+to execute it. Use the command
+
+. make_tester.bat
+
+to compile the test client, and
+
+./tester < testscript.txt
+
+or
+
+./tester < testscript_extended.txt
+
+to test the program. Use the command
+
+. verify.bat
+
+to verify the program. This assumes that verifast.exe is in your PATH.
+
+You must send in your solution no later than XXX, by e-mail to bart.jacobs@cs.kuleuven.be. You may not send in any files other than your modified version of bank.c.
+
+Non-K.U.Leuven students will be graded on their submitted program. K.U.Leuven students will have to come and defend their solution orally. The defense will take place in XXX. The exact timing will be agreed later by e-mail. During the defense your insight will be tested by asking questions such as: write down the heap chunks at a given point in the program.
+
+Please report questions or problems by e-mail to bart.jacobs@cs.kuleuven.be.

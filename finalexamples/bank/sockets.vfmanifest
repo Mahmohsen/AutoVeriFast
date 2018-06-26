@@ -1,0 +1,7 @@
+.provides .\sockets.h#create_server_socket
+.provides .\sockets.h#server_socket_accept
+.provides .\sockets.h#socket_close
+.provides .\sockets.h#socket_read_line
+.provides .\sockets.h#socket_write_integer
+.provides .\sockets.h#socket_write_string
+.provides .\sockets.h#socket_write_string_literal
